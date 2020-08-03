@@ -10,8 +10,9 @@ export default class CounterGroup extends Component{
     }
 
     handleResize = (event) => {
+      var check = (event.target.value).replace(/[^0-9]/g, "")
       this.setState({
-        size: (event.target.value) ? parseInt(event.target.value):0,
+        size: (check) ? parseInt(check):0,
       })
     }
 
