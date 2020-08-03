@@ -1,34 +1,50 @@
 import React, { Component } from "react";
 export default class Counter extends Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
-            value :0
+            value :0,
+            number: 0
         }
     }
 
-    onIncrease = () => {
+    handleIncrease = () => {
         this.setState(
             (preState) =>({
                 value: preState.value + 1
             })
         )
+        this.props.handleIncrease()
     }
 
-    onDecrease = () =>{
+    handleDecrease = () =>{
         this.setState(
             (preState) => ({
                 value: preState.value - 1
             })
         )
+        this.props.handleDecrease()
     }
+
+    static getDerivedStateFromProps(props, state){
+        if(props.groupSize !== state.number){
+           return{
+                number: props.groupSize,
+                value: 0
+           } 
+        }
+        return null;
+    }
+    // componentWillUnmount(){
+    //     this.props.handleChangeSize()
+    // }
 
     render(){
         return(
             <div>
-                <button onClick={this.onDecrease}>-</button>
+                <button onClick={this.handleDecrease}>-</button>
                 <mark>{this.state.value}</mark>
-                <button onClick={this.onIncrease}>+</button>
+                <button onClick={this.handleIncrease}>+</button>
             </div>
         )
     }
