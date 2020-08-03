@@ -36,7 +36,8 @@ export default class Counter extends Component{
         return null;
     }
     // componentWillUnmount(){
-    //     this.props.handleChangeSize()
+    //     console.log(this.state.value);
+    //     this.props.onUpdateSize(this.state.value)
     // }
 
     render(){

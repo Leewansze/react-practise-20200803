@@ -27,6 +27,7 @@ export default class CounterGroup extends Component{
     }
 
     handleTotalNumberDecrease = () =>{
+      console.log("1111+", this.state.totalNumber)
       this.setState(
         (preState) => ({
           totalNumber : preState.totalNumber - 1
@@ -34,10 +35,13 @@ export default class CounterGroup extends Component{
       )
     }
 
-    // handleChangeSize = () => {
-    //   this.setState({
-    //     totalNumber: 0
-    //   })
+    // onUpdateSize = (preValue) => {
+    //   console.log("---"+ preValue);
+    //   this.setState(
+    //     (preState) => ({
+    //       totalNumber : preState.totalNumber - preValue
+    //     })
+    //    )
     // }
 
     render(){
@@ -51,9 +55,10 @@ export default class CounterGroup extends Component{
                 initArray.map(key => <Counter 
                   handleIncrease={this.handleTotalNumberIncrease}
                   handleDecrease={this.handleTotalNumberDecrease}
-                  // handleChangeSize={this.handleChangeSize}
+                  // onUpdateSize={this.onUpdateSize}
                   handlekey={key}
-                  groupSize={this.state.size}/>)
+                  groupSize={this.state.size}
+                  />)
               }
           </div>
         )
