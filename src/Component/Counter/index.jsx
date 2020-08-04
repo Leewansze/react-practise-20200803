@@ -4,7 +4,7 @@ export default class Counter extends Component{
         super(props);
         this.state = {
             value :0,
-            number: 0
+            // number: 0
         }
     }
 
@@ -29,7 +29,7 @@ export default class Counter extends Component{
     static getDerivedStateFromProps(props, state){
         if(props.groupSize !== state.number){
            return{
-                number: props.groupSize,
+                // number: props.groupSize,
                 value: 0
            } 
         }

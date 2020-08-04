@@ -1,3 +1,5 @@
+export const ADD_TOTAL = "ADD_TOTAL";
+export const REDUCE_TOTAL = "REDUCE_TOTAL";
 export function onIncrease(){
     return{
         type: "ADD_TOTAL",
