@@ -3,12 +3,14 @@ import React from 'react';
 import './App.css';
 // import Counter from './Component/Counter';
 import CounterGroup from './Component/CounterGroup';
+import Counter from './Component/Counter';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <CounterGroup/>
+        <CounterGroup />
+        {/* <Counter /> */}
       </header>
     </div>
   );

@@ -1,86 +1,57 @@
 
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import Counter from "../Counter/index"
 import store from "../../redux/store.js";
+import { connect } from 'react-redux'
 
-export default class CounterGroup extends Component {
+class CounterGroup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      size: 0,
-      total: store.getState()
-    } 
+    }
   }
-  onIncrement = () => {
-    store.dispatch({
-        type: "increment"
-    });
-  };
-
-  onDecrement = () => {
-      store.dispatch({
-          type: "decrement"
-      });
-  };
-
-  onMakeZero = () => {
-    store.dispatch({
-        type: 'makeZero'
-    });
-  };
-
-  handleIncrease = () => {
-    this.onIncrement()
-    store.subscribe(() =>
-        this.setState({
-            total: store.getState()
-        })
-    );
-  };
-
-  handleDecrease = () => {
-      this.onDecrement()
-      store.subscribe(() =>
-          this.setState({
-              total: store.getState()
-          })
-      );
-  };
-
-  inputCount = (e) => {
-      if (e.target.value.match(/[0-9]+/g)) {
-          this.setState({
-            size: parseInt(e.target.value),
-          });
-          this.onMakeZero()
-      } else {
-          this.setState({
-            size: 0
-          });
-          this.onMakeZero()
-      }
-  };
+  updateTotalValue = (value) => {
+      this.props.changeTotalValue(value);
+  }
 
   render() {
-    const initArray = [...Array(this.state.size).keys()]
+    const initArray = [...Array(this.props.size).keys()]
+
     return (
       <div>
-          <label>Group size:</label>
-          <input value={this.state.CounterNsizeum} onChange = {this.inputCount}/>
-          <div>
-            <label>TotalValue: {store.getState()}</label>
-          </div>
-          {
-            initArray.map(key => <Counter 
-              handleDecrease={this.handleDecrease} 
-              handleIncrease={this.handleIncrease}
-              handlekey={key}
-              />)
-          }
+        <label>Group size:</label>
+        <input onChange={((e) => { this.props.changeSize(parseInt(e.target.value)) })} />
+        <div>
+          <label>TotalValue: {this.props.total}</label>
+        </div>
+        {
+          initArray.map(key => <Counter key={key}
+            onIncrementCounter={this.props.onIncrement}
+            onDecreaseCounter={this.props.onDecrease}
+            updateTotalValue = {this.updateTotalValue}/>)
+        }
       </div>
     )
   }
 }
+
+const mapStateToProps = state => {
+  const { totalValue, size } = state
+  return { total: totalValue, size: size }
+}
+
+
+const mapDispatchToProps = dispatch => ({
+  onIncrement: () => dispatch({ type: "increment"}),
+  onDecrease: () => dispatch({ type: "decrement"}),
+  changeSize: (size) => dispatch({ type: "resize", payload: size }),
+  changeTotalValue : (totalValue) => dispatch({ type: "changeTotalValue", payload: totalValue })
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(CounterGroup);
+
+
+
 // export default class CounterGroup extends Component{
 //     constructor(props){
 //         super(props);
